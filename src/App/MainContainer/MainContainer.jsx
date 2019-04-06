@@ -44,6 +44,9 @@ function MainContainer({ classes }) {
           <Typography>
             {`You have clicked ${clickCount} ${clickCount === 1 ? 'time' : 'times'}!`}
           </Typography>
+          <Typography>
+            {clickCount >= 10 ? 'Keep on clickin!' : ''}
+          </Typography>
         </Grid>
       </Grid>
     </Paper>
