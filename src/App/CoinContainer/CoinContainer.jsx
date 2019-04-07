@@ -16,9 +16,9 @@ const styles = theme => ({
   },
 });
 
-function ClickContainer({ classes, clickCount, updateClickCount }) {
+function CoinContainer({ classes, coinCount, updateCoinCount }) {
   const click = () => {
-    updateClickCount(clickCount + 1);
+    updateCoinCount(coinCount + 1);
   };
 
   return (
@@ -40,7 +40,7 @@ function ClickContainer({ classes, clickCount, updateClickCount }) {
         </Grid>
         <Grid item>
           <Typography>
-            {`You have earned ${clickCount} sticky brown ${clickCount === 1 ? 'coin' : 'coins'}!`}
+            {`Sticky brown ${coinCount === 1 ? 'coin' : 'coins'}: ${coinCount}`}
           </Typography>
         </Grid>
       </Grid>
@@ -48,11 +48,11 @@ function ClickContainer({ classes, clickCount, updateClickCount }) {
   );
 }
 
-ClickContainer.propTypes = {
+CoinContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  clickCount: PropTypes.number.isRequired,
-  updateClickCount: PropTypes.func.isRequired,
+  coinCount: PropTypes.number.isRequired,
+  updateCoinCount: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(ClickContainer);
+export default withStyles(styles)(CoinContainer);
