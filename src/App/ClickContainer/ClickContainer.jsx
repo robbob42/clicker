@@ -16,7 +16,7 @@ const styles = theme => ({
   },
 });
 
-function MainContainer({ classes }) {
+function ClickContainer({ classes }) {
   const [clickCount, updateClickCount] = useState(0);
 
   const click = () => {
@@ -53,9 +53,9 @@ function MainContainer({ classes }) {
   );
 }
 
-MainContainer.propTypes = {
+ClickContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MainContainer);
+export default withStyles(styles)(ClickContainer);

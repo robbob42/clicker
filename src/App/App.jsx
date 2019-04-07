@@ -1,11 +1,11 @@
 import React from 'react';
-import MainContainer from './MainContainer/MainContainer';
+import ClickContainer from './ClickContainer/ClickContainer';
 
 
 function App() {
   return (
     <>
-      <MainContainer />
+      <ClickContainer />
     </>
   );
 }
