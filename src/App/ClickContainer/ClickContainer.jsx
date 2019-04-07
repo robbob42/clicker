@@ -8,7 +8,7 @@ import {
 const styles = theme => ({
   paper: {
     margin: '0 auto',
-    width: 300,
+    width: 500,
     padding: 20,
   },
   button: {

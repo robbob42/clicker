@@ -5,21 +5,21 @@ import {
   Grid,
 } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = () => ({
   paper: {
     margin: '0 auto',
-    width: 300,
+    width: 500,
     padding: 20,
-  },
-  button: {
-    backgroundColor: theme.palette.grey[400],
   },
 });
 
 function StoryContainer({
   classes, clickCount, story, updateStory,
 }) {
-  if (clickCount >= 10) {
+  if (clickCount === 5) {
+    updateStory('You have just clicked 5 times.  You\'re doing great!');
+  }
+  if (clickCount === 10) {
     updateStory('You have just clicked 10 times.  You\'re doing great!');
   }
 
@@ -28,7 +28,6 @@ function StoryContainer({
       <Grid
         container
         alignItems="center"
-        justify="space-evenly"
       >
         <Grid item>
           <Typography>
