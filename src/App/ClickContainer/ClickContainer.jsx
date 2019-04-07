@@ -35,12 +35,12 @@ function ClickContainer({ classes, clickCount, updateClickCount }) {
             className={classes.button}
             disableRipple
           >
-            Click Me
+            Work Hard
           </Button>
         </Grid>
         <Grid item>
           <Typography>
-            {`You have clicked ${clickCount} ${clickCount === 1 ? 'time' : 'times'}!`}
+            {`You have earned ${clickCount} sticky brown ${clickCount === 1 ? 'coin' : 'coins'}!`}
           </Typography>
         </Grid>
       </Grid>

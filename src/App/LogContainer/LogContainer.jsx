@@ -14,7 +14,7 @@ const styles = () => ({
   logTitle: {
     fontSize: 14,
     fontWeight: 'bold',
-  }
+  },
 });
 
 function LogContainer({
