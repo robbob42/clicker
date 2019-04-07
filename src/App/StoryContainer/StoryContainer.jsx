@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Typography, Paper, withStyles,
+  Typography, Paper, withStyles,
   Grid,
 } from '@material-ui/core';
 
@@ -16,10 +16,12 @@ const styles = theme => ({
   },
 });
 
-function ClickContainer({ classes, clickCount, updateClickCount }) {
-  const click = () => {
-    updateClickCount(clickCount + 1);
-  };
+function StoryContainer({
+  classes, clickCount, story, updateStory,
+}) {
+  if (clickCount >= 10) {
+    updateStory('You have just clicked 10 times.  You\'re doing great!');
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -29,18 +31,8 @@ function ClickContainer({ classes, clickCount, updateClickCount }) {
         justify="space-evenly"
       >
         <Grid item>
-          <Button
-            variant="contained"
-            onClick={click}
-            className={classes.button}
-            disableRipple
-          >
-            Click Me
-          </Button>
-        </Grid>
-        <Grid item>
           <Typography>
-            {`You have clicked ${clickCount} ${clickCount === 1 ? 'time' : 'times'}!`}
+            {story}
           </Typography>
         </Grid>
       </Grid>
@@ -48,11 +40,12 @@ function ClickContainer({ classes, clickCount, updateClickCount }) {
   );
 }
 
-ClickContainer.propTypes = {
+StoryContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
   clickCount: PropTypes.number.isRequired,
-  updateClickCount: PropTypes.func.isRequired,
+  story: PropTypes.string.isRequired,
+  updateStory: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(ClickContainer);
+export default withStyles(styles)(StoryContainer);
