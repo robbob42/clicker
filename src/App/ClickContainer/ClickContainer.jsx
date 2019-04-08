@@ -16,25 +16,26 @@ const styles = theme => ({
   },
 });
 
-function CoinContainer({
+function ClickContainer({
   classes, coinCount, updateCoinCount, addLog,
-  updateStory,
+  updateStory, totalClicks, updateTotalClicks,
 }) {
   const click = () => {
     const newCoinCount = coinCount + 1;
+    const newTotalClicks = totalClicks + 1;
 
     let storyLine;
-    if (newCoinCount === 5) {
+    if (newTotalClicks === 5) {
       storyLine = 'You have just clicked 5 times.  You\'re doing great!';
       addLog(storyLine);
       updateStory(storyLine);
     }
-    if (newCoinCount === 10) {
+    if (newTotalClicks === 10) {
       storyLine = 'You have just clicked 10 times.  You\'re doing great!';
       addLog(storyLine);
       updateStory(storyLine);
     }
-
+    updateTotalClicks(newTotalClicks);
     updateCoinCount(newCoinCount);
   };
 
@@ -65,13 +66,15 @@ function CoinContainer({
   );
 }
 
-CoinContainer.propTypes = {
+ClickContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
   coinCount: PropTypes.number.isRequired,
   updateCoinCount: PropTypes.func.isRequired,
   updateStory: PropTypes.func.isRequired,
   addLog: PropTypes.func.isRequired,
+  totalClicks: PropTypes.number.isRequired,
+  updateTotalClicks: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(CoinContainer);
+export default withStyles(styles)(ClickContainer);
