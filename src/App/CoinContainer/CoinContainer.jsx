@@ -16,9 +16,26 @@ const styles = theme => ({
   },
 });
 
-function CoinContainer({ classes, coinCount, updateCoinCount }) {
+function CoinContainer({
+  classes, coinCount, updateCoinCount, addLog,
+  updateStory,
+}) {
   const click = () => {
-    updateCoinCount(coinCount + 1);
+    const newCoinCount = coinCount + 1;
+
+    let storyLine;
+    if (newCoinCount === 5) {
+      storyLine = 'You have just clicked 5 times.  You\'re doing great!';
+      addLog(storyLine);
+      updateStory(storyLine);
+    }
+    if (newCoinCount === 10) {
+      storyLine = 'You have just clicked 10 times.  You\'re doing great!';
+      addLog(storyLine);
+      updateStory(storyLine);
+    }
+
+    updateCoinCount(newCoinCount);
   };
 
   return (
@@ -53,6 +70,8 @@ CoinContainer.propTypes = {
   classes: PropTypes.object.isRequired,
   coinCount: PropTypes.number.isRequired,
   updateCoinCount: PropTypes.func.isRequired,
+  updateStory: PropTypes.func.isRequired,
+  addLog: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(CoinContainer);

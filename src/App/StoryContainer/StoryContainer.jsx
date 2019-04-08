@@ -13,16 +13,7 @@ const styles = () => ({
   },
 });
 
-function StoryContainer({
-  classes, coinCount, story, updateStory,
-}) {
-  if (coinCount === 5) {
-    updateStory('You have just clicked 5 times.  You\'re doing great!');
-  }
-  if (coinCount === 10) {
-    updateStory('You have just clicked 10 times.  You\'re doing great!');
-  }
-
+function StoryContainer({ classes, story }) {
   return (
     <Paper className={classes.paper}>
       <Grid
@@ -42,9 +33,7 @@ function StoryContainer({
 StoryContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  coinCount: PropTypes.number.isRequired,
   story: PropTypes.string.isRequired,
-  updateStory: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(StoryContainer);

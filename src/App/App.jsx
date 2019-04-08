@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
-import ClickContainer from './CoinContainer/CoinContainer';
+import CoinContainer from './CoinContainer/CoinContainer';
 import StoryContainer from './StoryContainer/StoryContainer';
 import LogContainer from './LogContainer/LogContainer';
+import StoreContainer from './StoreContainer/StoreContainer';
 
 function App() {
   const [coinCount, updateCoinCount] = useState(0);
   const [story, updateStory] = useState('');
+  const [log, updateLog] = useState([]);
+
+  const addLog = (logItem) => {
+    const logCopy = log.slice();
+    logCopy.unshift(logItem)
+    updateLog(logCopy);
+  };
 
   return (
     <>
-      <ClickContainer coinCount={coinCount} updateCoinCount={updateCoinCount} />
-      <StoryContainer coinCount={coinCount} story={story} updateStory={updateStory} />
-      <LogContainer logItem={story} />
+      <CoinContainer
+        coinCount={coinCount}
+        updateCoinCount={updateCoinCount}
+        updateStory={updateStory}
+        addLog={addLog}
+      />
+      <StoryContainer
+        coinCount={coinCount}
+        story={story}
+      />
+      <LogContainer log={log} />
+      <StoreContainer coinCount={coinCount} addLog={addLog} />
     </>
   );
 }

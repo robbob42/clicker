@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Typography, Paper, withStyles,
@@ -18,15 +18,8 @@ const styles = () => ({
 });
 
 function LogContainer({
-  classes, logItem,
+  classes, log,
 }) {
-  const [log, updateLog] = useState([]);
-
-  useEffect(() => {
-    log.unshift(logItem);
-    updateLog(log);
-  }, [logItem]);
-
   return (
     <Paper className={classes.paper}>
       <Grid
@@ -36,7 +29,7 @@ function LogContainer({
         <Grid item>
           <Typography className={classes.logTitle}>A log of your Adventure</Typography>
           {log.map(logLine => (
-            <Typography>
+            <Typography key={logLine}>
               {logLine}
             </Typography>
           ))}
@@ -49,7 +42,8 @@ function LogContainer({
 LogContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  logItem: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  log: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(LogContainer);
