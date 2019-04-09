@@ -19,9 +19,10 @@ const styles = theme => ({
 function ClickContainer({
   classes, coinCount, updateCoinCount, addLog,
   updateStory, totalClicks, updateTotalClicks,
+  clickPower,
 }) {
   const click = () => {
-    const newCoinCount = coinCount + 1;
+    const newCoinCount = coinCount + clickPower;
     const newTotalClicks = totalClicks + 1;
 
     let storyLine;
@@ -61,6 +62,11 @@ function ClickContainer({
             {`Sticky brown ${coinCount === 1 ? 'coin' : 'coins'}: ${coinCount}`}
           </Typography>
         </Grid>
+        <Grid item>
+          <Typography>
+            {`Current Click Power: ${clickPower}`}
+          </Typography>
+        </Grid>
       </Grid>
     </Paper>
   );
@@ -75,6 +81,7 @@ ClickContainer.propTypes = {
   addLog: PropTypes.func.isRequired,
   totalClicks: PropTypes.number.isRequired,
   updateTotalClicks: PropTypes.func.isRequired,
+  clickPower: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(ClickContainer);

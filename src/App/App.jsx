@@ -6,6 +6,7 @@ import StoreContainer from './StoreContainer/StoreContainer';
 
 function App() {
   const [totalClicks, updateTotalClicks] = useState(0);
+  const [clickPower, updateClickPower] = useState(1);
   const [coinCount, updateCoinCount] = useState(0);
   const [story, updateStory] = useState('');
   const [log, updateLog] = useState([]);
@@ -25,13 +26,18 @@ function App() {
         addLog={addLog}
         totalClicks={totalClicks}
         updateTotalClicks={updateTotalClicks}
+        clickPower={clickPower}
       />
       <StoryContainer
         coinCount={coinCount}
         story={story}
       />
       <LogContainer log={log} />
-      <StoreContainer coinCount={coinCount} addLog={addLog} />
+      <StoreContainer
+        coinCount={coinCount}
+        addLog={addLog}
+        updateClickPower={updateClickPower}
+      />
     </>
   );
 }

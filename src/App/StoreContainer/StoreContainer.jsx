@@ -36,12 +36,15 @@ const rows = [
   createData('Chuck Norris', 'Of course', 1000, 100000),
 ];
 
-function StoreContainer({ classes, coinCount, addLog }) {
+function StoreContainer({
+  classes, coinCount, addLog, updateClickPower,
+}) {
   const localCount = coinCount;
 
-  const attemptToBuy = (cost) => {
-    if (localCount >= cost) {
-      addLog('You bought it!');
+  const attemptToBuy = (item) => {
+    if (localCount >= item.cost) {
+      addLog(`You bought a ${item.name}! You're click power is now ${item.clickPower}`);
+      updateClickPower(item.clickPower);
     } else {
       addLog('Nice try, cheapskate!');
     }
@@ -73,7 +76,7 @@ function StoreContainer({ classes, coinCount, addLog }) {
                   variant="contained"
                   className={classes.button}
                   disableRipple
-                  onClick={() => attemptToBuy(row.cost)}
+                  onClick={() => attemptToBuy(row)}
                 >
                   Buy
                 </Button>
@@ -91,6 +94,7 @@ StoreContainer.propTypes = {
   classes: PropTypes.object.isRequired,
   coinCount: PropTypes.number.isRequired,
   addLog: PropTypes.func.isRequired,
+  updateClickPower: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(StoreContainer);
