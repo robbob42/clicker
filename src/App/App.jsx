@@ -38,6 +38,7 @@ function App() {
         coinCount={coinCount}
         addLog={addLog}
         updateClickPower={updateClickPower}
+        updateCoinCount={updateCoinCount}
       />
     </>
   );

@@ -38,6 +38,7 @@ const rows = [
 
 function StoreContainer({
   classes, coinCount, addLog, updateClickPower,
+  updateCoinCount,
 }) {
   const localCount = coinCount;
 
@@ -45,6 +46,7 @@ function StoreContainer({
     if (localCount >= item.cost) {
       addLog(`You bought a ${item.name}! You're click power is now ${item.clickPower}`);
       updateClickPower(item.clickPower);
+      updateCoinCount(coinCount - item.cost)
     } else {
       addLog('Nice try, cheapskate!');
     }
@@ -95,6 +97,7 @@ StoreContainer.propTypes = {
   coinCount: PropTypes.number.isRequired,
   addLog: PropTypes.func.isRequired,
   updateClickPower: PropTypes.func.isRequired,
+  updateCoinCount: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(StoreContainer);
