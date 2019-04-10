@@ -20,6 +20,7 @@ const styles = () => ({
 function LogContainer({
   classes, log,
 }) {
+  const logCopy = log.slice(0, 5);
   return (
     <Paper className={classes.paper}>
       <Grid
@@ -28,9 +29,9 @@ function LogContainer({
       >
         <Grid item>
           <Typography className={classes.logTitle}>A log of your Adventure</Typography>
-          {log.map(logLine => (
-            <Typography key={logLine}>
-              {logLine}
+          {logCopy.map(logLine => (
+            <Typography key={logLine.id}>
+              {logLine.logItem}
             </Typography>
           ))}
         </Grid>

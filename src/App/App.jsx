@@ -13,7 +13,8 @@ function App() {
 
   const addLog = (logItem) => {
     const logCopy = log.slice();
-    logCopy.unshift(logItem);
+    const nextId = log.length + 1;
+    logCopy.unshift({ id: nextId, logItem });
     updateLog(logCopy);
   };
 
