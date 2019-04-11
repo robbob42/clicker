@@ -20,36 +20,51 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, description, clickPower, cost) {
-  id += 1;
-  return {
-    id, name, description, clickPower, cost,
-  };
-}
-
-const rows = [
-  createData('Stick', 'It\'s brown and sticky', 2, 10),
-  createData('Rusty Shovel', 'Well, it\'s better than a stick', 5, 200),
-  createData('Push Lawn Mower', 'PUSH!', 10, 500),
-  createData('Tractor', 'Where\'s my tractor?', 25, 1000),
-  createData('Chuck Norris', 'Of course', 1000, 100000),
-];
-
 function StoreContainer({
-  classes, coinCount, addLog, updateClickPower,
-  updateCoinCount,
+  classes, coinCount, addLog,
+  updateCoinCount, items, buyAndEquipItem,
+  equipItem,
 }) {
   const localCount = coinCount;
 
   const attemptToBuy = (item) => {
     if (localCount >= item.cost) {
-      addLog(`You bought a ${item.name}! You're click power is now ${item.clickPower}`);
-      updateClickPower(item.clickPower);
-      updateCoinCount(coinCount - item.cost)
+      addLog(`You bought a ${item.name}! You're click power is now ${item.itemClickPower}`);
+      updateCoinCount(coinCount - item.cost);
+      buyAndEquipItem(item);
     } else {
       addLog('Nice try, cheapskate!');
     }
+  };
+
+  const buildAButton = (item) => {
+    if (!item.owned) {
+      return (
+        <Button
+          variant="contained"
+          className={classes.button}
+          disableRipple
+          onClick={() => attemptToBuy(item)}
+        >
+          Buy
+        </Button>
+      );
+    }
+    if (!item.equipped) {
+      return (
+        <Button
+          variant="contained"
+          className={classes.button}
+          disableRipple
+          onClick={() => equipItem(item)}
+        >
+          Equip
+        </Button>
+      );
+    }
+    return (
+      <div>Equipped</div>
+    );
   };
 
   return (
@@ -65,23 +80,16 @@ function StoreContainer({
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.id}>
+          {items.map(item => (
+            <TableRow key={item.id}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {item.name}
               </TableCell>
-              <TableCell align="right">{row.description}</TableCell>
-              <TableCell align="right">{row.clickPower}</TableCell>
-              <TableCell align="right">{row.cost}</TableCell>
+              <TableCell align="right">{item.description}</TableCell>
+              <TableCell align="right">{item.itemClickPower}</TableCell>
+              <TableCell align="right">{item.cost}</TableCell>
               <TableCell align="right">
-                <Button
-                  variant="contained"
-                  className={classes.button}
-                  disableRipple
-                  onClick={() => attemptToBuy(row)}
-                >
-                  Buy
-                </Button>
+                { buildAButton(item) }
               </TableCell>
             </TableRow>
           ))}
@@ -96,8 +104,11 @@ StoreContainer.propTypes = {
   classes: PropTypes.object.isRequired,
   coinCount: PropTypes.number.isRequired,
   addLog: PropTypes.func.isRequired,
-  updateClickPower: PropTypes.func.isRequired,
   updateCoinCount: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  items: PropTypes.array.isRequired,
+  buyAndEquipItem: PropTypes.func.isRequired,
+  equipItem: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(StoreContainer);

@@ -21,23 +21,25 @@ function ClickContainer({
   updateStory, totalClicks, updateTotalClicks,
   clickPower,
 }) {
-  const click = () => {
-    const newCoinCount = coinCount + clickPower;
-    const newTotalClicks = totalClicks + 1;
+  const click = (event) => {
+    if (event.nativeEvent.clientX !== 0) {
+      const newCoinCount = coinCount + clickPower;
+      const newTotalClicks = totalClicks + 1;
 
-    let storyLine;
-    if (newTotalClicks === 5) {
-      storyLine = 'You have just clicked 5 times.  You\'re doing great!';
-      addLog(storyLine);
-      updateStory(storyLine);
+      let storyLine;
+      if (newTotalClicks === 5) {
+        storyLine = 'You have just clicked 5 times.  You\'re doing great!';
+        addLog(storyLine);
+        updateStory(storyLine);
+      }
+      if (newTotalClicks === 10) {
+        storyLine = 'You have just clicked 10 times.  You\'re doing great!';
+        addLog(storyLine);
+        updateStory(storyLine);
+      }
+      updateTotalClicks(newTotalClicks);
+      updateCoinCount(newCoinCount);
     }
-    if (newTotalClicks === 10) {
-      storyLine = 'You have just clicked 10 times.  You\'re doing great!';
-      addLog(storyLine);
-      updateStory(storyLine);
-    }
-    updateTotalClicks(newTotalClicks);
-    updateCoinCount(newCoinCount);
   };
 
   return (
