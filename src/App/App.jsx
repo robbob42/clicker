@@ -3,6 +3,7 @@ import ClickContainer from './ClickContainer/ClickContainer';
 import StoryContainer from './StoryContainer/StoryContainer';
 import LogContainer from './LogContainer/LogContainer';
 import StoreContainer from './StoreContainer/StoreContainer';
+import useInterval from '../hooks/useInterval';
 
 function App() {
   const [totalClicks, updateTotalClicks] = useState(0);
@@ -11,6 +12,10 @@ function App() {
   const [story, updateStory] = useState('');
   const [log, updateLog] = useState([]);
   const [items, updateItems] = useState([]);
+  const [secondsPlayed, updateSecondsPlayed] = useState(0);
+  const [autoCoinAmount, updateAutoCoinAmount] = useState(1);
+  const [autoCoinWaitSeconds, updateAutoCoinWaitSeconds] = useState(5);
+  const [secondsTillAutoCoin, updateSecondsTillAutoCoin] = useState(0);
 
   const addLog = (logItem) => {
     const logCopy = log.slice();
@@ -50,6 +55,7 @@ function App() {
   };
 
   useEffect(() => {
+    // Initialize store items
     let id = 0;
     function createData(name, description, itemClickPower, cost, owned, equipped) {
       id += 1;
@@ -57,7 +63,6 @@ function App() {
         id, name, description, itemClickPower, cost, owned, equipped,
       };
     }
-
     const rows = [
       createData('Fist', 'The thumb goes on the outside!', 1, 0, true, true),
       createData('Stick', 'It\'s brown and sticky', 2, 10, false, false),
@@ -66,9 +71,21 @@ function App() {
       createData('Tractor', 'Where\'s my tractor?', 25, 1000, false, false),
       createData('Chuck Norris', 'Of course', 1000, 100000, false, false),
     ];
-
     updateItems(rows);
   }, []);
+
+  // Initialize timer
+  useInterval(() => {
+    const nextSecond = secondsPlayed + 1;
+    updateSecondsPlayed(nextSecond);
+
+    if (secondsTillAutoCoin === 0) {
+      updateCoinCount(coinCount + autoCoinAmount);
+    }
+
+    updateSecondsTillAutoCoin(nextSecond % autoCoinWaitSeconds);
+  }, 1000);
+
   return (
     <>
       <ClickContainer
@@ -79,6 +96,10 @@ function App() {
         totalClicks={totalClicks}
         updateTotalClicks={updateTotalClicks}
         clickPower={clickPower}
+        secondsTillAutoCoin={secondsTillAutoCoin}
+        autoCoinAmount={autoCoinAmount}
+        secondsPlayed={secondsPlayed}
+        autoCoinWaitSeconds={autoCoinWaitSeconds}
       />
       <StoryContainer
         coinCount={coinCount}

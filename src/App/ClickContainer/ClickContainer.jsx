@@ -5,6 +5,8 @@ import {
   Grid,
 } from '@material-ui/core';
 
+import LinearDeterminate from './LinearDeterminate/LinearDeterminate';
+
 const styles = theme => ({
   paper: {
     margin: '0 auto',
@@ -19,7 +21,8 @@ const styles = theme => ({
 function ClickContainer({
   classes, coinCount, updateCoinCount, addLog,
   updateStory, totalClicks, updateTotalClicks,
-  clickPower,
+  clickPower, autoCoinWaitSeconds, autoCoinAmount,
+  secondsTillAutoCoin,
 }) {
   const click = (event) => {
     if (event.nativeEvent.clientX !== 0) {
@@ -69,6 +72,14 @@ function ClickContainer({
             {`Current Click Power: ${clickPower}`}
           </Typography>
         </Grid>
+        <Grid item>
+          <Typography>
+            {`Gaining ${autoCoinAmount} coin(s) every ${autoCoinWaitSeconds} second(s)`}
+          </Typography>
+          <LinearDeterminate
+            secondsTillAutoCoin={secondsTillAutoCoin}
+          />
+        </Grid>
       </Grid>
     </Paper>
   );
@@ -84,6 +95,9 @@ ClickContainer.propTypes = {
   totalClicks: PropTypes.number.isRequired,
   updateTotalClicks: PropTypes.func.isRequired,
   clickPower: PropTypes.number.isRequired,
+  autoCoinAmount: PropTypes.number.isRequired,
+  autoCoinWaitSeconds: PropTypes.number.isRequired,
+  secondsTillAutoCoin: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(ClickContainer);
