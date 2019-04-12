@@ -20,43 +20,43 @@ const styles = theme => ({
   },
 });
 
-function StoreContainer({
+function WeaponsContainer({
   classes, coinCount, addLog,
-  updateCoinCount, items, buyAndEquipItem,
-  equipItem,
+  updateCoinCount, weapons, buyAndEquipWeapon,
+  equipWeapon,
 }) {
   const localCount = coinCount;
 
-  const attemptToBuy = (item) => {
-    if (localCount >= item.cost) {
-      addLog(`You bought a ${item.name}! You're click power is now ${item.itemClickPower}`);
-      updateCoinCount(coinCount - item.cost);
-      buyAndEquipItem(item);
+  const attemptToBuyWeapon = (weapon) => {
+    if (localCount >= weapon.cost) {
+      addLog(`You bought a ${weapon.name}! Your click power is now ${weapon.weaponClickPower}`);
+      updateCoinCount(coinCount - weapon.cost);
+      buyAndEquipWeapon(weapon);
     } else {
       addLog('Nice try, cheapskate!');
     }
   };
 
-  const buildAButton = (item) => {
-    if (!item.owned) {
+  const buildAButton = (weapon) => {
+    if (!weapon.owned) {
       return (
         <Button
           variant="contained"
           className={classes.button}
           disableRipple
-          onClick={() => attemptToBuy(item)}
+          onClick={() => attemptToBuyWeapon(weapon)}
         >
           Buy
         </Button>
       );
     }
-    if (!item.equipped) {
+    if (!weapon.equipped) {
       return (
         <Button
           variant="contained"
           className={classes.button}
           disableRipple
-          onClick={() => equipItem(item)}
+          onClick={() => equipWeapon(weapon)}
         >
           Equip
         </Button>
@@ -72,7 +72,7 @@ function StoreContainer({
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Item</TableCell>
+            <TableCell>Weapon</TableCell>
             <TableCell align="right">Description</TableCell>
             <TableCell align="right">Click Power</TableCell>
             <TableCell align="right">Cost</TableCell>
@@ -80,16 +80,16 @@ function StoreContainer({
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map(item => (
-            <TableRow key={item.id}>
+          {weapons.map(weapon => (
+            <TableRow key={weapon.id}>
               <TableCell component="th" scope="row">
-                {item.name}
+                {weapon.name}
               </TableCell>
-              <TableCell align="right">{item.description}</TableCell>
-              <TableCell align="right">{item.itemClickPower}</TableCell>
-              <TableCell align="right">{item.cost}</TableCell>
+              <TableCell align="right">{weapon.description}</TableCell>
+              <TableCell align="right">{weapon.weaponClickPower}</TableCell>
+              <TableCell align="right">{weapon.cost}</TableCell>
               <TableCell align="right">
-                { buildAButton(item) }
+                { buildAButton(weapon) }
               </TableCell>
             </TableRow>
           ))}
@@ -99,16 +99,16 @@ function StoreContainer({
   );
 }
 
-StoreContainer.propTypes = {
+WeaponsContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
   coinCount: PropTypes.number.isRequired,
   addLog: PropTypes.func.isRequired,
   updateCoinCount: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  items: PropTypes.array.isRequired,
-  buyAndEquipItem: PropTypes.func.isRequired,
-  equipItem: PropTypes.func.isRequired,
+  weapons: PropTypes.array.isRequired,
+  buyAndEquipWeapon: PropTypes.func.isRequired,
+  equipWeapon: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(StoreContainer);
+export default withStyles(styles)(WeaponsContainer);

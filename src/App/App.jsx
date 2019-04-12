@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClickContainer from './ClickContainer/ClickContainer';
 import StoryContainer from './StoryContainer/StoryContainer';
 import LogContainer from './LogContainer/LogContainer';
-import StoreContainer from './StoreContainer/StoreContainer';
+import WeaponsContainer from './WeaponsContainer/WeaponsContainer';
 import useInterval from '../hooks/useInterval';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   const [coinCount, updateCoinCount] = useState(0);
   const [story, updateStory] = useState('');
   const [log, updateLog] = useState([]);
-  const [items, updateItems] = useState([]);
+  const [weapons, updateWeapons] = useState([]);
   const [secondsPlayed, updateSecondsPlayed] = useState(0);
   const [autoCoinAmount, updateAutoCoinAmount] = useState(1);
   const [autoCoinWaitSeconds, updateAutoCoinWaitSeconds] = useState(5);
@@ -24,43 +24,43 @@ function App() {
     updateLog(logCopy);
   };
 
-  const equipItem = (item) => {
-    const itemCopy = items.map((itemLine) => {
-      if (item.id === itemLine.id) {
+  const equipWeapon = (weapon) => {
+    const weaponCopy = weapons.map((compareWeapon) => {
+      if (weapon.id === compareWeapon.id) {
         return (
-          { ...itemLine, equipped: true }
+          { ...compareWeapon, equipped: true }
         );
       }
       return (
-        { ...itemLine, equipped: false }
+        { ...compareWeapon, equipped: false }
       );
     });
-    updateClickPower(item.itemClickPower);
-    updateItems(itemCopy);
+    updateClickPower(weapon.weaponClickPower);
+    updateWeapons(weaponCopy);
   };
 
-  const buyAndEquipItem = (item) => {
-    const itemCopy = items.map((itemLine) => {
-      if (item.id === itemLine.id) {
+  const buyAndEquipWeapon = (weapon) => {
+    const weaponCopy = weapons.map((compareWeapon) => {
+      if (weapon.id === compareWeapon.id) {
         return (
-          { ...itemLine, owned: true, equipped: true }
+          { ...compareWeapon, owned: true, equipped: true }
         );
       }
       return (
-        { ...itemLine, equipped: false }
+        { ...compareWeapon, equipped: false }
       );
     });
-    updateClickPower(item.itemClickPower);
-    updateItems(itemCopy);
+    updateClickPower(weapon.weaponClickPower);
+    updateWeapons(weaponCopy);
   };
 
   useEffect(() => {
-    // Initialize store items
+    // Initialize store weapons
     let id = 0;
-    function createData(name, description, itemClickPower, cost, owned, equipped) {
+    function createData(name, description, weaponClickPower, cost, owned, equipped) {
       id += 1;
       return {
-        id, name, description, itemClickPower, cost, owned, equipped,
+        id, name, description, weaponClickPower, cost, owned, equipped,
       };
     }
     const rows = [
@@ -71,7 +71,7 @@ function App() {
       createData('Tractor', 'Where\'s my tractor?', 25, 1000, false, false),
       createData('Chuck Norris', 'Of course', 1000, 100000, false, false),
     ];
-    updateItems(rows);
+    updateWeapons(rows);
   }, []);
 
   // Initialize timer
@@ -106,13 +106,13 @@ function App() {
         story={story}
       />
       <LogContainer log={log} />
-      <StoreContainer
+      <WeaponsContainer
         coinCount={coinCount}
         addLog={addLog}
         updateCoinCount={updateCoinCount}
-        items={items}
-        equipItem={equipItem}
-        buyAndEquipItem={buyAndEquipItem}
+        weapons={weapons}
+        equipWeapon={equipWeapon}
+        buyAndEquipWeapon={buyAndEquipWeapon}
       />
     </>
   );
