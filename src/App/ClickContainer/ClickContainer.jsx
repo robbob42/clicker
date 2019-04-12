@@ -78,6 +78,7 @@ function ClickContainer({
           </Typography>
           <LinearDeterminate
             secondsTillAutoCoin={secondsTillAutoCoin}
+            autoCoinWaitSeconds={autoCoinWaitSeconds}
           />
         </Grid>
       </Grid>

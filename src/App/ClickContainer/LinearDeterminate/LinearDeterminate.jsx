@@ -9,9 +9,10 @@ const useStyles = makeStyles({
   },
 });
 
-function LinearDeterminate({ secondsTillAutoCoin }) {
+function LinearDeterminate({ secondsTillAutoCoin, autoCoinWaitSeconds }) {
   const classes = useStyles();
-  const linearValue = (secondsTillAutoCoin === 0) ? 100 : secondsTillAutoCoin * 20;
+  const ratio = 100 / autoCoinWaitSeconds;
+  const linearValue = (secondsTillAutoCoin === 0) ? 100 : secondsTillAutoCoin * ratio;
   return (
     <div className={classes.root}>
       <LinearProgress variant="determinate" value={linearValue} />
@@ -21,6 +22,7 @@ function LinearDeterminate({ secondsTillAutoCoin }) {
 
 LinearDeterminate.propTypes = {
   secondsTillAutoCoin: PropTypes.number.isRequired,
+  autoCoinWaitSeconds: PropTypes.number.isRequired,
 };
 
 export default LinearDeterminate;
