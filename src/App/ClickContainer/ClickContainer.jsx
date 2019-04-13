@@ -22,7 +22,7 @@ function ClickContainer({
   classes, coinCount, updateCoinCount, addLog,
   updateStory, totalClicks, updateTotalClicks,
   clickPower, autoCoinWaitSeconds, autoCoinAmount,
-  secondsTillAutoCoin,
+  secondsTillAutoCoin, secondsPlayed,
 }) {
   const click = (event) => {
     if (event.nativeEvent.clientX !== 0) {
@@ -81,6 +81,11 @@ function ClickContainer({
             autoCoinWaitSeconds={autoCoinWaitSeconds}
           />
         </Grid>
+        <Grid item>
+          <Typography>
+            {`Current Seconds Played: ${Math.floor(secondsPlayed)}`}
+          </Typography>
+        </Grid>
       </Grid>
     </Paper>
   );
@@ -99,6 +104,7 @@ ClickContainer.propTypes = {
   autoCoinAmount: PropTypes.number.isRequired,
   autoCoinWaitSeconds: PropTypes.number.isRequired,
   secondsTillAutoCoin: PropTypes.number.isRequired,
+  secondsPlayed: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(ClickContainer);

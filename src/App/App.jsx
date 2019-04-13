@@ -21,7 +21,7 @@ function App() {
   const [secondsPlayed, updateSecondsPlayed] = useState(0);
   const [autoCoinAmount, updateAutoCoinAmount] = useState(1);
   const [autoCoinWaitSeconds, updateAutoCoinWaitSeconds] = useState(20);
-  const [secondsTillAutoCoin, updateSecondsTillAutoCoin] = useState(0);
+  const [secondsTillAutoCoin, updateSecondsTillAutoCoin] = useState(20);
 
   const addLog = (logItem) => {
     const logCopy = log.slice();
@@ -58,7 +58,7 @@ function App() {
 
   // Initialize timer
   useInterval(() => {
-    const nextSecond = secondsPlayed + 1;
+    const nextSecond = secondsPlayed + 0.5;
     updateSecondsPlayed(nextSecond);
 
     if (secondsTillAutoCoin === 0) {
@@ -66,7 +66,7 @@ function App() {
     }
 
     updateSecondsTillAutoCoin(nextSecond % autoCoinWaitSeconds);
-  }, 1000);
+  }, 500);
 
   return (
     <>
