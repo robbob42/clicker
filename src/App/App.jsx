@@ -33,7 +33,6 @@ const styles = () => ({
 function App({ classes }) {
   const [totalClicks, updateTotalClicks] = useState(0);
   const [clickPower, updateClickPower] = useState(1);
-  const [coinCount, updateCoinCount] = useState(0);
   const [story, updateStory] = useState('You wake up.  You remember nothing.  You know nothing... except that you must click!');
   const [log, updateLog] = useState([{ id: 0, logItem: 'Click!' }]);
   const [weapons, updateWeapons] = useState(buildWeaponStore());
@@ -43,6 +42,10 @@ function App({ classes }) {
   const [autoCoinWaitSeconds, updateAutoCoinWaitSeconds] = useState(20);
   const [secondsTillAutoCoin, updateSecondsTillAutoCoin] = useState(20);
   const [selectedTab, setSelectedTab] = React.useState(0);
+
+  // Currency
+  const [sbcCount, updateSbcCount] = useState(0);
+  const [rockCount, updateRockCount] = useState(0);
 
   const addLog = (logItem) => {
     const logCopy = log.slice();
@@ -83,7 +86,7 @@ function App({ classes }) {
     updateSecondsPlayed(nextSecond);
 
     if (secondsTillAutoCoin === 0) {
-      updateCoinCount(coinCount + autoCoinAmount);
+      updateSbcCount(sbcCount + autoCoinAmount);
     }
 
     updateSecondsTillAutoCoin(nextSecond % autoCoinWaitSeconds);
@@ -108,8 +111,8 @@ function App({ classes }) {
           {selectedTab === 0
             && (
               <ClickContainer
-                coinCount={coinCount}
-                updateCoinCount={updateCoinCount}
+                sbcCount={sbcCount}
+                updateSbcCount={updateSbcCount}
                 updateStory={updateStory}
                 addLog={addLog}
                 totalClicks={totalClicks}
@@ -125,9 +128,9 @@ function App({ classes }) {
           {selectedTab === 1
             && (
               <WeaponsContainer
-                coinCount={coinCount}
+                sbcCount={sbcCount}
                 addLog={addLog}
-                updateCoinCount={updateCoinCount}
+                updateSbcCount={updateSbcCount}
                 weapons={weapons}
                 equipWeapon={equipWeapon}
                 buyAndEquipWeapon={buyAndEquipWeapon}
@@ -137,9 +140,9 @@ function App({ classes }) {
           {selectedTab === 2
             && (
               <MagicContainer
-                coinCount={coinCount}
+                sbcCount={sbcCount}
                 addLog={addLog}
-                updateCoinCount={updateCoinCount}
+                updateSbcCount={updateSbcCount}
                 magicItems={magicItems}
                 equipMItem={equipMItem}
                 buyAndEquipMItem={buyAndEquipMItem}
@@ -149,7 +152,7 @@ function App({ classes }) {
         </Grid>
         <Grid item className={classes.sideGridItem}>
           <StatsContainer
-            coinCount={coinCount}
+            sbcCount={sbcCount}
             clickPower={clickPower}
             secondsTillAutoCoin={secondsTillAutoCoin}
             autoCoinAmount={autoCoinAmount}
@@ -157,7 +160,7 @@ function App({ classes }) {
             autoCoinWaitSeconds={autoCoinWaitSeconds}
           />
           <StoryContainer
-            coinCount={coinCount}
+            sbcCount={sbcCount}
             story={story}
           />
           <LogContainer log={log} />

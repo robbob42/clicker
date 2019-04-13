@@ -20,17 +20,17 @@ const styles = theme => ({
 });
 
 function WeaponsContainer({
-  classes, coinCount, addLog,
-  updateCoinCount, weapons, buyAndEquipWeapon,
+  classes, sbcCount, addLog,
+  updateSbcCount, weapons, buyAndEquipWeapon,
   equipWeapon,
 }) {
-  const localCount = coinCount;
+  const localCount = sbcCount;
   const weaponKeys = Object.keys(weapons);
 
   const attemptToBuyWeapon = (weapon) => {
     if (localCount >= weapon.cost) {
       addLog(`You bought a ${weapon.name}! Your click power is now ${weapon.weaponClickPower}`);
-      updateCoinCount(coinCount - weapon.cost);
+      updateSbcCount(sbcCount - weapon.cost);
       buyAndEquipWeapon(weapon);
     } else {
       addLog('Nice try, cheapskate!');
@@ -102,9 +102,9 @@ function WeaponsContainer({
 WeaponsContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  coinCount: PropTypes.number.isRequired,
+  sbcCount: PropTypes.number.isRequired,
   addLog: PropTypes.func.isRequired,
-  updateCoinCount: PropTypes.func.isRequired,
+  updateSbcCount: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   weapons: PropTypes.object.isRequired,
   buyAndEquipWeapon: PropTypes.func.isRequired,

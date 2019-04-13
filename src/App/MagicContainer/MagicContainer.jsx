@@ -20,17 +20,17 @@ const styles = theme => ({
 });
 
 function MagicContainer({
-  classes, coinCount, addLog,
-  updateCoinCount, magicItems, buyAndEquipMItem,
+  classes, sbcCount, addLog,
+  updateSbcCount, magicItems, buyAndEquipMItem,
   equipMItem,
 }) {
-  const localCount = coinCount;
+  const localCount = sbcCount;
   const mItemKeys = Object.keys(magicItems);
 
   const attemptToBuyMItem = (mItem) => {
     if (localCount >= mItem.cost) {
       addLog(`You bought a ${mItem.name}!  You now gain ${mItem.coinsPerIteration} coin(s) every ${mItem.iterationLength} second(s)`);
-      updateCoinCount(coinCount - mItem.cost);
+      updateSbcCount(sbcCount - mItem.cost);
       buyAndEquipMItem(mItem);
     } else {
       addLog('Nice try, cheapskate!');
@@ -104,9 +104,9 @@ function MagicContainer({
 MagicContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  coinCount: PropTypes.number.isRequired,
+  sbcCount: PropTypes.number.isRequired,
   addLog: PropTypes.func.isRequired,
-  updateCoinCount: PropTypes.func.isRequired,
+  updateSbcCount: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   magicItems: PropTypes.object.isRequired,
   buyAndEquipMItem: PropTypes.func.isRequired,

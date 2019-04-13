@@ -15,13 +15,13 @@ const styles = theme => ({
 });
 
 function ClickContainer({
-  classes, coinCount, updateCoinCount, addLog,
+  classes, sbcCount, updateSbcCount, addLog,
   updateStory, totalClicks, updateTotalClicks,
   clickPower,
 }) {
   const click = (event) => {
     if (event.nativeEvent.clientX !== 0) {
-      const newCoinCount = coinCount + clickPower;
+      const newsbcCount = sbcCount + clickPower;
       const newTotalClicks = totalClicks + 1;
 
       let storyLine;
@@ -36,7 +36,7 @@ function ClickContainer({
         updateStory(storyLine);
       }
       updateTotalClicks(newTotalClicks);
-      updateCoinCount(newCoinCount);
+      updateSbcCount(newsbcCount);
     }
   };
 
@@ -65,8 +65,8 @@ function ClickContainer({
 ClickContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  coinCount: PropTypes.number.isRequired,
-  updateCoinCount: PropTypes.func.isRequired,
+  sbcCount: PropTypes.number.isRequired,
+  updateSbcCount: PropTypes.func.isRequired,
   updateStory: PropTypes.func.isRequired,
   addLog: PropTypes.func.isRequired,
   totalClicks: PropTypes.number.isRequired,

@@ -19,7 +19,7 @@ const styles = () => ({
 });
 
 function StatsContainer({
-  classes, coinCount, clickPower, autoCoinAmount,
+  classes, sbcCount, clickPower, autoCoinAmount,
   autoCoinWaitSeconds, secondsTillAutoCoin, secondsPlayed,
 }) {
   return (
@@ -31,7 +31,7 @@ function StatsContainer({
       >
         <Grid item>
           <Typography>
-            {`Sticky brown ${coinCount === 1 ? 'coin' : 'coins'} (SBCs): ${coinCount}`}
+            {`Sticky brown ${sbcCount === 1 ? 'coin' : 'coins'} (SBCs): ${sbcCount}`}
           </Typography>
         </Grid>
         <Grid item>
@@ -61,7 +61,7 @@ function StatsContainer({
 StatsContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  coinCount: PropTypes.number.isRequired,
+  sbcCount: PropTypes.number.isRequired,
   clickPower: PropTypes.number.isRequired,
   autoCoinAmount: PropTypes.number.isRequired,
   autoCoinWaitSeconds: PropTypes.number.isRequired,
