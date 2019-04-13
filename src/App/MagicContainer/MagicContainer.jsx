@@ -26,6 +26,7 @@ function MagicContainer({
   equipMItem,
 }) {
   const localCount = coinCount;
+  const mItemKeys = Object.keys(magicItems);
 
   const attemptToBuyMItem = (mItem) => {
     if (localCount >= mItem.cost) {
@@ -81,17 +82,17 @@ function MagicContainer({
           </TableRow>
         </TableHead>
         <TableBody>
-          {magicItems.map(mItem => (
-            <TableRow key={mItem.id}>
+          {mItemKeys.map(mItemId => (
+            <TableRow key={mItemId}>
               <TableCell component="th" scope="row">
-                {mItem.name}
+                {magicItems[mItemId].name}
               </TableCell>
-              <TableCell align="right">{mItem.description}</TableCell>
-              <TableCell align="right">{mItem.iterationLength}</TableCell>
-              <TableCell align="right">{mItem.coinsPerIteration}</TableCell>
-              <TableCell align="right">{mItem.cost}</TableCell>
+              <TableCell align="right">{magicItems[mItemId].description}</TableCell>
+              <TableCell align="right">{magicItems[mItemId].iterationLength}</TableCell>
+              <TableCell align="right">{magicItems[mItemId].coinsPerIteration}</TableCell>
+              <TableCell align="right">{magicItems[mItemId].cost}</TableCell>
               <TableCell align="right">
-                { buildAButton(mItem) }
+                { buildAButton(magicItems[mItemId]) }
               </TableCell>
             </TableRow>
           ))}
@@ -108,7 +109,7 @@ MagicContainer.propTypes = {
   addLog: PropTypes.func.isRequired,
   updateCoinCount: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  magicItems: PropTypes.array.isRequired,
+  magicItems: PropTypes.object.isRequired,
   buyAndEquipMItem: PropTypes.func.isRequired,
   equipMItem: PropTypes.func.isRequired,
 };

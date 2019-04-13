@@ -26,6 +26,7 @@ function WeaponsContainer({
   equipWeapon,
 }) {
   const localCount = coinCount;
+  const weaponKeys = Object.keys(weapons);
 
   const attemptToBuyWeapon = (weapon) => {
     if (localCount >= weapon.cost) {
@@ -80,16 +81,16 @@ function WeaponsContainer({
           </TableRow>
         </TableHead>
         <TableBody>
-          {weapons.map(weapon => (
-            <TableRow key={weapon.id}>
+          {weaponKeys.map(weaponId => (
+            <TableRow key={weaponId}>
               <TableCell component="th" scope="row">
-                {weapon.name}
+                {weapons[weaponId].name}
               </TableCell>
-              <TableCell align="right">{weapon.description}</TableCell>
-              <TableCell align="right">{weapon.weaponClickPower}</TableCell>
-              <TableCell align="right">{weapon.cost}</TableCell>
+              <TableCell align="right">{weapons[weaponId].description}</TableCell>
+              <TableCell align="right">{weapons[weaponId].weaponClickPower}</TableCell>
+              <TableCell align="right">{weapons[weaponId].cost}</TableCell>
               <TableCell align="right">
-                { buildAButton(weapon) }
+                { buildAButton(weapons[weaponId]) }
               </TableCell>
             </TableRow>
           ))}
@@ -106,7 +107,7 @@ WeaponsContainer.propTypes = {
   addLog: PropTypes.func.isRequired,
   updateCoinCount: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  weapons: PropTypes.array.isRequired,
+  weapons: PropTypes.object.isRequired,
   buyAndEquipWeapon: PropTypes.func.isRequired,
   equipWeapon: PropTypes.func.isRequired,
 };
