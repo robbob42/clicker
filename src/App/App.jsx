@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import {
+  AppBar, Tabs, Tab, withStyles,
+  Grid,
+} from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import ClickContainer from './ClickContainer/ClickContainer';
 import StoryContainer from './StoryContainer/StoryContainer';
+import StatsContainer from './StatsContainer/StatsContainer';
 import LogContainer from './LogContainer/LogContainer';
 import WeaponsContainer from './WeaponsContainer/WeaponsContainer';
 import MagicContainer from './MagicContainer/MagicContainer';
@@ -10,18 +16,33 @@ import {
   buildWeaponStore, buildMItemStore, equipItem,
 } from '../utils/items/items';
 
-function App() {
+const styles = () => ({
+  gridContainer: {
+    direction: 'column',
+  },
+  mainGridItem: {
+    flexGrow: 2,
+    flexBasis: '66%',
+  },
+  sideGridItem: {
+    flexBasis: '33%',
+    flexGrow: 1,
+  },
+});
+
+function App({ classes }) {
   const [totalClicks, updateTotalClicks] = useState(0);
   const [clickPower, updateClickPower] = useState(1);
   const [coinCount, updateCoinCount] = useState(0);
-  const [story, updateStory] = useState('');
-  const [log, updateLog] = useState([]);
+  const [story, updateStory] = useState('You wake up.  You remember nothing.  You know nothing... except that you must click!');
+  const [log, updateLog] = useState([{ id: 0, logItem: 'Click!' }]);
   const [weapons, updateWeapons] = useState(buildWeaponStore());
   const [magicItems, updateMagicItems] = useState(buildMItemStore());
   const [secondsPlayed, updateSecondsPlayed] = useState(0);
   const [autoCoinAmount, updateAutoCoinAmount] = useState(1);
   const [autoCoinWaitSeconds, updateAutoCoinWaitSeconds] = useState(20);
   const [secondsTillAutoCoin, updateSecondsTillAutoCoin] = useState(20);
+  const [selectedTab, setSelectedTab] = React.useState(0);
 
   const addLog = (logItem) => {
     const logCopy = log.slice();
@@ -68,44 +89,87 @@ function App() {
     updateSecondsTillAutoCoin(nextSecond % autoCoinWaitSeconds);
   }, 500);
 
+
+  function handleChangeTab(event, newValue) {
+    setSelectedTab(newValue);
+  }
+
   return (
     <>
-      <ClickContainer
-        coinCount={coinCount}
-        updateCoinCount={updateCoinCount}
-        updateStory={updateStory}
-        addLog={addLog}
-        totalClicks={totalClicks}
-        updateTotalClicks={updateTotalClicks}
-        clickPower={clickPower}
-        secondsTillAutoCoin={secondsTillAutoCoin}
-        autoCoinAmount={autoCoinAmount}
-        secondsPlayed={secondsPlayed}
-        autoCoinWaitSeconds={autoCoinWaitSeconds}
-      />
-      <StoryContainer
-        coinCount={coinCount}
-        story={story}
-      />
-      <LogContainer log={log} />
-      <WeaponsContainer
-        coinCount={coinCount}
-        addLog={addLog}
-        updateCoinCount={updateCoinCount}
-        weapons={weapons}
-        equipWeapon={equipWeapon}
-        buyAndEquipWeapon={buyAndEquipWeapon}
-      />
-      <MagicContainer
-        coinCount={coinCount}
-        addLog={addLog}
-        updateCoinCount={updateCoinCount}
-        magicItems={magicItems}
-        equipMItem={equipMItem}
-        buyAndEquipMItem={buyAndEquipMItem}
-      />
+      <Grid container className={classes.gridContainer}>
+        <Grid item className={classes.mainGridItem}>
+          <AppBar position="static" className={classes.appBar}>
+            <Tabs value={selectedTab} onChange={handleChangeTab}>
+              <Tab label="Click Away" disableRipple />
+              <Tab label="Weapons Shop" disableRipple />
+              <Tab label="Magic Shop" disableRipple />
+            </Tabs>
+          </AppBar>
+          {selectedTab === 0
+            && (
+              <ClickContainer
+                coinCount={coinCount}
+                updateCoinCount={updateCoinCount}
+                updateStory={updateStory}
+                addLog={addLog}
+                totalClicks={totalClicks}
+                updateTotalClicks={updateTotalClicks}
+                clickPower={clickPower}
+                secondsTillAutoCoin={secondsTillAutoCoin}
+                autoCoinAmount={autoCoinAmount}
+                secondsPlayed={secondsPlayed}
+                autoCoinWaitSeconds={autoCoinWaitSeconds}
+              />
+            )
+          }
+          {selectedTab === 1
+            && (
+              <WeaponsContainer
+                coinCount={coinCount}
+                addLog={addLog}
+                updateCoinCount={updateCoinCount}
+                weapons={weapons}
+                equipWeapon={equipWeapon}
+                buyAndEquipWeapon={buyAndEquipWeapon}
+              />
+            )
+          }
+          {selectedTab === 2
+            && (
+              <MagicContainer
+                coinCount={coinCount}
+                addLog={addLog}
+                updateCoinCount={updateCoinCount}
+                magicItems={magicItems}
+                equipMItem={equipMItem}
+                buyAndEquipMItem={buyAndEquipMItem}
+              />
+            )
+          }
+        </Grid>
+        <Grid item className={classes.sideGridItem}>
+          <StatsContainer
+            coinCount={coinCount}
+            clickPower={clickPower}
+            secondsTillAutoCoin={secondsTillAutoCoin}
+            autoCoinAmount={autoCoinAmount}
+            secondsPlayed={secondsPlayed}
+            autoCoinWaitSeconds={autoCoinWaitSeconds}
+          />
+          <StoryContainer
+            coinCount={coinCount}
+            story={story}
+          />
+          <LogContainer log={log} />
+        </Grid>
+      </Grid>
     </>
   );
 }
 
-export default App;
+App.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);

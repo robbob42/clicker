@@ -7,9 +7,12 @@ import {
 
 const styles = () => ({
   paper: {
-    margin: '0 auto',
-    width: 500,
     padding: 20,
+    margin: 10,
+  },
+  storyTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
 
@@ -21,6 +24,7 @@ function StoryContainer({ classes, story }) {
         alignItems="center"
       >
         <Grid item>
+          <Typography className={classes.storyTitle}>The Story so far...</Typography>
           <Typography>
             {story}
           </Typography>

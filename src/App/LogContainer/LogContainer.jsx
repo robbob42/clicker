@@ -7,9 +7,8 @@ import {
 
 const styles = () => ({
   paper: {
-    margin: '0 auto',
-    width: 500,
     padding: 20,
+    margin: 10,
   },
   logTitle: {
     fontSize: 14,

@@ -9,7 +9,6 @@ import {
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
   table: {
@@ -87,8 +86,8 @@ function WeaponsContainer({
                 {weapons[weaponId].name}
               </TableCell>
               <TableCell align="right">{weapons[weaponId].description}</TableCell>
-              <TableCell align="right">{weapons[weaponId].weaponClickPower}</TableCell>
-              <TableCell align="right">{weapons[weaponId].cost}</TableCell>
+              <TableCell align="right">{weapons[weaponId].weaponClickPower.toLocaleString()}</TableCell>
+              <TableCell align="right">{weapons[weaponId].cost.toLocaleString()}</TableCell>
               <TableCell align="right">
                 { buildAButton(weapons[weaponId]) }
               </TableCell>

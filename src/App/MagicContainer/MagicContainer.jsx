@@ -9,7 +9,6 @@ import {
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
   table: {
@@ -30,7 +29,7 @@ function MagicContainer({
 
   const attemptToBuyMItem = (mItem) => {
     if (localCount >= mItem.cost) {
-      addLog(`You bought a ${mItem.name}!`);
+      addLog(`You bought a ${mItem.name}!  You now gain ${mItem.coinsPerIteration} coin(s) every ${mItem.iterationLength} second(s)`);
       updateCoinCount(coinCount - mItem.cost);
       buyAndEquipMItem(mItem);
     } else {
@@ -90,7 +89,7 @@ function MagicContainer({
               <TableCell align="right">{magicItems[mItemId].description}</TableCell>
               <TableCell align="right">{magicItems[mItemId].iterationLength}</TableCell>
               <TableCell align="right">{magicItems[mItemId].coinsPerIteration}</TableCell>
-              <TableCell align="right">{magicItems[mItemId].cost}</TableCell>
+              <TableCell align="right">{magicItems[mItemId].cost.toLocaleString()}</TableCell>
               <TableCell align="right">
                 { buildAButton(magicItems[mItemId]) }
               </TableCell>

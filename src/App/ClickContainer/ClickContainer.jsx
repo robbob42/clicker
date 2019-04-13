@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Typography, Paper, withStyles,
+  Button, Paper, withStyles,
   Grid,
 } from '@material-ui/core';
 
-import LinearDeterminate from './LinearDeterminate/LinearDeterminate';
-
 const styles = theme => ({
   paper: {
-    margin: '0 auto',
-    width: 500,
-    padding: 20,
+    padding: '20px 0px',
   },
   button: {
     backgroundColor: theme.palette.grey[400],
@@ -21,8 +17,7 @@ const styles = theme => ({
 function ClickContainer({
   classes, coinCount, updateCoinCount, addLog,
   updateStory, totalClicks, updateTotalClicks,
-  clickPower, autoCoinWaitSeconds, autoCoinAmount,
-  secondsTillAutoCoin, secondsPlayed,
+  clickPower,
 }) {
   const click = (event) => {
     if (event.nativeEvent.clientX !== 0) {
@@ -62,30 +57,6 @@ function ClickContainer({
             Work Hard
           </Button>
         </Grid>
-        <Grid item>
-          <Typography>
-            {`Sticky brown ${coinCount === 1 ? 'coin' : 'coins'}: ${coinCount}`}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography>
-            {`Current Click Power: ${clickPower}`}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography>
-            {`Gaining ${autoCoinAmount} coin(s) every ${autoCoinWaitSeconds} second(s)`}
-          </Typography>
-          <LinearDeterminate
-            secondsTillAutoCoin={secondsTillAutoCoin}
-            autoCoinWaitSeconds={autoCoinWaitSeconds}
-          />
-        </Grid>
-        <Grid item>
-          <Typography>
-            {`Current Seconds Played: ${Math.floor(secondsPlayed)}`}
-          </Typography>
-        </Grid>
       </Grid>
     </Paper>
   );
@@ -101,10 +72,6 @@ ClickContainer.propTypes = {
   totalClicks: PropTypes.number.isRequired,
   updateTotalClicks: PropTypes.func.isRequired,
   clickPower: PropTypes.number.isRequired,
-  autoCoinAmount: PropTypes.number.isRequired,
-  autoCoinWaitSeconds: PropTypes.number.isRequired,
-  secondsTillAutoCoin: PropTypes.number.isRequired,
-  secondsPlayed: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(ClickContainer);
