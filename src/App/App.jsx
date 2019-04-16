@@ -11,6 +11,7 @@ import StatsContainer from './StatsContainer/StatsContainer';
 import LogContainer from './LogContainer/LogContainer';
 import WeaponsContainer from './WeaponsContainer/WeaponsContainer';
 import MagicContainer from './MagicContainer/MagicContainer';
+import PawnShop from './PawnShop/PawnShop';
 import useInterval from '../hooks/useInterval';
 import {
   buildWeaponStore, buildMItemStore, equipItem,
@@ -101,11 +102,12 @@ function App({ classes }) {
     <>
       <Grid container className={classes.gridContainer}>
         <Grid item className={classes.mainGridItem}>
-          <AppBar position="static" className={classes.appBar}>
+          <AppBar position="static">
             <Tabs value={selectedTab} onChange={handleChangeTab}>
               <Tab label="Click Away" disableRipple />
               <Tab label="Weapons Shop" disableRipple />
               <Tab label="Magic Shop" disableRipple />
+              <Tab label="Pawn Shop" disableRipple />
             </Tabs>
           </AppBar>
           {selectedTab === 0
@@ -147,6 +149,11 @@ function App({ classes }) {
                 equipMItem={equipMItem}
                 buyAndEquipMItem={buyAndEquipMItem}
               />
+            )
+          }
+          {selectedTab === 3
+            && (
+              <PawnShop />
             )
           }
         </Grid>
