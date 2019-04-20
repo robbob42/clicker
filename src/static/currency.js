@@ -11,6 +11,12 @@ export const currencySpecs = [
     id: 2,
     name: 'Rock',
     description: 'Almost, but not quite, worthless.',
-    sbcRatio: 10,
+    sbcRatio: 100,
+  },
+  {
+    id: 3,
+    name: 'Diamond',
+    description: 'Shining bright like a diamond.',
+    sbcRatio: 10000,
   },
 ];

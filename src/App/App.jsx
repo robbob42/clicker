@@ -47,6 +47,7 @@ function App({ classes }) {
   // Currency
   const [sbcCount, updateSbcCount] = useState(0);
   const [rockCount, updateRockCount] = useState(0);
+  const [diamondCount, updateDiamondCount] = useState(0);
 
   const addLog = (logItem) => {
     const logCopy = log.slice();
@@ -90,6 +91,10 @@ function App({ classes }) {
       case 2:
         updateSbcCount(sbcCount - currency.sbcRatio);
         updateRockCount(rockCount + amount);
+        break;
+      case 3:
+        updateSbcCount(sbcCount - currency.sbcRatio);
+        updateDiamondCount(diamondCount + amount);
         break;
       default:
         break;
@@ -186,6 +191,7 @@ function App({ classes }) {
             secondsPlayed={secondsPlayed}
             autoCoinWaitSeconds={autoCoinWaitSeconds}
             rockCount={rockCount}
+            diamondCount={diamondCount}
           />
           <StoryContainer
             sbcCount={sbcCount}
