@@ -16,13 +16,16 @@ const styles = theme => ({
   },
 });
 
-function PawnShop({ classes }) {
+function PawnShop({
+  classes, addLog, sbcCount, updateSbcCount,
+  buyCurrency,
+}) {
   const [selectedTab, setSelectedTab] = useState(0);
 
   function handleChangeTab(event, newValue) {
     setSelectedTab(newValue);
   }
-  
+
   return (
     <Paper className={classes.paper}>
       <Grid
@@ -36,13 +39,18 @@ function PawnShop({ classes }) {
           </Typography>
           <AppBar position="static" className={classes.appBar} color="secondary">
             <Tabs value={selectedTab} onChange={handleChangeTab} indicatorColor="primary">
-              <Tab label="Buy" disableRipple />
-              <Tab label="Sell" disableRipple />
+              <Tab label="SBC Shop" disableRipple />
+              <Tab label="Rock Shop" disableRipple />
             </Tabs>
           </AppBar>
           {selectedTab === 0
             && (
-              <PawnBuy />
+              <PawnBuy
+                addLog={addLog}
+                sbcCount={sbcCount}
+                updateSbcCount={updateSbcCount}
+                buyCurrency={buyCurrency}
+              />
             )
           }
           {selectedTab === 1
@@ -59,6 +67,10 @@ function PawnShop({ classes }) {
 PawnShop.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
+  addLog: PropTypes.func.isRequired,
+  sbcCount: PropTypes.number.isRequired,
+  updateSbcCount: PropTypes.func.isRequired,
+  buyCurrency: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(PawnShop);

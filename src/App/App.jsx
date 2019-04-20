@@ -81,9 +81,24 @@ function App({ classes }) {
     equipItem(mItem, updatesAry, magicItems, updateMagicItems, true);
   };
 
+  const buyCurrency = (currency, amount) => {
+    updateSbcCount(sbcCount - currency.sbcRatio);
+    switch (currency.id) {
+      case 1:
+        updateSbcCount(sbcCount - currency.sbcRatio + amount);
+        break;
+      case 2:
+        updateSbcCount(sbcCount - currency.sbcRatio);
+        updateRockCount(rockCount + amount);
+        break;
+      default:
+        break;
+    }
+  };
+
   // Initialize timer
   useInterval(() => {
-    const nextSecond = secondsPlayed + 0.5;
+    const nextSecond = secondsPlayed + 0.25;
     updateSecondsPlayed(nextSecond);
 
     if (secondsTillAutoCoin === 0) {
@@ -91,7 +106,7 @@ function App({ classes }) {
     }
 
     updateSecondsTillAutoCoin(nextSecond % autoCoinWaitSeconds);
-  }, 500);
+  }, 250);
 
 
   function handleChangeTab(event, newValue) {
@@ -153,7 +168,12 @@ function App({ classes }) {
           }
           {selectedTab === 3
             && (
-              <PawnShop />
+              <PawnShop
+                addLog={addLog}
+                sbcCount={sbcCount}
+                updateSbcCount={updateSbcCount}
+                buyCurrency={buyCurrency}
+              />
             )
           }
         </Grid>
@@ -165,6 +185,7 @@ function App({ classes }) {
             autoCoinAmount={autoCoinAmount}
             secondsPlayed={secondsPlayed}
             autoCoinWaitSeconds={autoCoinWaitSeconds}
+            rockCount={rockCount}
           />
           <StoryContainer
             sbcCount={sbcCount}

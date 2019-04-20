@@ -21,6 +21,7 @@ const styles = () => ({
 function StatsContainer({
   classes, sbcCount, clickPower, autoCoinAmount,
   autoCoinWaitSeconds, secondsTillAutoCoin, secondsPlayed,
+  rockCount,
 }) {
   return (
     <Paper className={classes.paper}>
@@ -34,6 +35,16 @@ function StatsContainer({
             {`Sticky brown ${sbcCount === 1 ? 'coin' : 'coins'} (SBCs): ${sbcCount}`}
           </Typography>
         </Grid>
+        {
+          rockCount !== 0
+          && (
+          <Grid item>
+            <Typography>
+              {`${rockCount === 1 ? 'Rock' : 'Rocks'}: ${rockCount}`}
+            </Typography>
+          </Grid>
+          )
+        }
         <Grid item>
           <Typography>
             {`Current Click Power: ${clickPower}`}
@@ -67,6 +78,7 @@ StatsContainer.propTypes = {
   autoCoinWaitSeconds: PropTypes.number.isRequired,
   secondsTillAutoCoin: PropTypes.number.isRequired,
   secondsPlayed: PropTypes.number.isRequired,
+  rockCount: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(StatsContainer);
