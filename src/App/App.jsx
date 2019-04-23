@@ -83,17 +83,17 @@ function App({ classes }) {
   };
 
   const buyCurrency = (currency, amount) => {
-    updateSbcCount(sbcCount - currency.sbcRatio);
+    updateSbcCount(sbcCount - currency.sbcCost);
     switch (currency.id) {
       case 1:
-        updateSbcCount(sbcCount - currency.sbcRatio + amount);
+        updateSbcCount(sbcCount - currency.sbcCost + amount);
         break;
       case 2:
-        updateSbcCount(sbcCount - currency.sbcRatio);
+        updateSbcCount(sbcCount - currency.sbcCost);
         updateRockCount(rockCount + amount);
         break;
       case 3:
-        updateSbcCount(sbcCount - currency.sbcRatio);
+        updateRockCount(rockCount - currency.rockCost);
         updateDiamondCount(diamondCount + amount);
         break;
       default:

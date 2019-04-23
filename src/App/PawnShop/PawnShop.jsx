@@ -5,7 +5,8 @@ import {
   withStyles, Tabs, Tab,
 } from '@material-ui/core';
 
-import PawnBuy from './PawnBuy/PawnBuy';
+import SbcShop from './SbcShop/SbcShop';
+import RockShop from './RockShop/RockShop';
 
 const styles = theme => ({
   paper: {
@@ -45,7 +46,7 @@ function PawnShop({
           </AppBar>
           {selectedTab === 0
             && (
-              <PawnBuy
+              <SbcShop
                 addLog={addLog}
                 sbcCount={sbcCount}
                 updateSbcCount={updateSbcCount}
@@ -55,7 +56,12 @@ function PawnShop({
           }
           {selectedTab === 1
             && (
-              <PawnBuy />
+              <RockShop
+                addLog={addLog}
+                sbcCount={sbcCount}
+                updateSbcCount={updateSbcCount}
+                buyCurrency={buyCurrency}
+              />
             )
           }
         </Grid>

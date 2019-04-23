@@ -21,12 +21,12 @@ const styles = theme => ({
   },
 });
 
-function PawnBuy({
+function RockShop({
   classes, addLog, sbcCount, updateSbcCount,
   buyCurrency,
 }) {
   const attemptToBuyItem = (item) => {
-    if (sbcCount >= item.sbcRatio) {
+    if (sbcCount >= item.rockCost) {
       addLog(`You bought a ${item.name}!`);
       buyCurrency(item, 1);
     } else {
@@ -41,18 +41,19 @@ function PawnBuy({
           <TableRow>
             <TableCell>Item</TableCell>
             <TableCell>Description</TableCell>
-            <TableCell align="right">Cost</TableCell>
+            <TableCell align="right">Cost (Rocks)</TableCell>
             <TableCell align="right">Buy</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {currencySpecs.map(item => (
+            item.rockCost !== 0 && (
             <TableRow key={item.id}>
               <TableCell component="th" scope="row">
                 {item.name}
               </TableCell>
               <TableCell>{item.description}</TableCell>
-              <TableCell align="right">{item.sbcRatio.toLocaleString()}</TableCell>
+              <TableCell align="right">{item.rockCost.toLocaleString()}</TableCell>
               <TableCell align="right">
                 <Button
                   variant="contained"
@@ -64,14 +65,14 @@ function PawnBuy({
                 </Button>
               </TableCell>
             </TableRow>
-          ))}
+            )))}
         </TableBody>
       </Table>
     </Paper>
   );
 }
 
-PawnBuy.propTypes = {
+RockShop.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
   sbcCount: PropTypes.number.isRequired,
@@ -80,4 +81,4 @@ PawnBuy.propTypes = {
   buyCurrency: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(PawnBuy);
+export default withStyles(styles)(RockShop);
